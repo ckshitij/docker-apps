@@ -1,0 +1,15 @@
+services:
+  redis:
+    image: redis:8.0.0  # Use Redis version 8.0.0
+    container_name: redis  # Name of the container
+    ports:
+      - "6379:6379"  # Map host port 6379 to container port 6379
+    volumes:
+      - ./../storage:/data/db  # Persist Redis data to a local directory
+    command: ["redis-server", "--requirepass", "password"]  # Start Redis with password authentication
+    networks:
+      - redis-net  # Attach container to the redis-net network
+
+networks:
+  redis-net:
+    driver: bridge  # Use the default bridge network driver
